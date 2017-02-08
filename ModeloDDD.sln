@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModeloTarefa", "ModeloTaref
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModeloApi", "ModeloApi\ModeloApi.csproj", "{E31C5D89-3DF8-4ADD-BB56-0F410871EA11}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModeloTransversal", "ModeloTransversal\ModeloTransversal.csproj", "{C9B7263D-F8FB-4667-882C-9291ADCCCA21}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +61,10 @@ Global
 		{E31C5D89-3DF8-4ADD-BB56-0F410871EA11}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E31C5D89-3DF8-4ADD-BB56-0F410871EA11}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E31C5D89-3DF8-4ADD-BB56-0F410871EA11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9B7263D-F8FB-4667-882C-9291ADCCCA21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9B7263D-F8FB-4667-882C-9291ADCCCA21}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9B7263D-F8FB-4667-882C-9291ADCCCA21}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9B7263D-F8FB-4667-882C-9291ADCCCA21}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -72,5 +78,6 @@ Global
 		{2F6F3AD4-B245-471E-A5AC-EC3989854C40} = {40A62E8B-D632-4C07-9102-471B0A3C3BEE}
 		{ED7B98CC-436D-4425-99AF-6DBA5F52F443} = {A6AE68BC-8328-4E41-AF7D-E98FEBDA4029}
 		{E31C5D89-3DF8-4ADD-BB56-0F410871EA11} = {A6AE68BC-8328-4E41-AF7D-E98FEBDA4029}
+		{C9B7263D-F8FB-4667-882C-9291ADCCCA21} = {7C2DE85E-AB38-4A99-836B-6A24B4927DAC}
 	EndGlobalSection
 EndGlobal

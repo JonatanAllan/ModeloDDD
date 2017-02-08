@@ -234,6 +234,10 @@
       <Project>{2F6F3AD4-B245-471E-A5AC-EC3989854C40}</Project>
       <Name>ModeloRecursos</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ModeloTransversal\ModeloTransversal.csproj">
+      <Project>{c9b7263d-f8fb-4667-882c-9291adccca21}</Project>
+      <Name>ModeloTransversal</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
