@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ModeloDominio.Entidades
+﻿namespace ModeloDominio.Entidades
 {
     public class Exemplo : BaseEntidade
     {

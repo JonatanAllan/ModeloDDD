@@ -1,7 +1,7 @@
 using ModeloApi;
+using System.Web.Http;
 using SimpleInjector;
 using SimpleInjector.Integration.WebApi;
-using System.Web.Http;
 
 [assembly: WebActivatorEx.PostApplicationStartMethod(typeof(SimpleInjectorWebApiInitializer), "Initialize")]
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using ModeloDominio.Entidades;
 
 namespace ModeloDominio.Interfaces.Repositorios
 {
@@ -15,31 +16,31 @@ namespace ModeloDominio.Interfaces.Repositorios
 
         void TruncarTabela(string tabela);
 
-        void Inserir(TEntidade entidade);
+        bool Inserir(TEntidade entidade);
 
-        void Atualizar(TEntidade entidade);
+        bool Atualizar(TEntidade entidade);
 
-        void Remover(TEntidade entidade);
+        bool Remover(TEntidade entidade);
 
-        void Mesclar(TEntidade entidade);
+        bool Mesclar(TEntidade entidade);
 
-        void InserirEmMassa(IEnumerable<TEntidade> entidades);
+        bool InserirEmMassa(IEnumerable<TEntidade> entidades);
 
-        void AtualizarEmMassa(IEnumerable<TEntidade> entidades);
+        bool AtualizarEmMassa(IEnumerable<TEntidade> entidades);
 
-        void RemoverEmMassa(IEnumerable<TEntidade> entidades);
+        bool RemoverEmMassa(IEnumerable<TEntidade> entidades);
 
-        void MesclarEmMassa(IEnumerable<TEntidade> entidades);
+        bool MesclarEmMassa(IEnumerable<TEntidade> entidades);
 
         TEntidade ObterPorChave(object chave);
 
         TEntidade ObterPorChave(object[] chave);
 
-        object Contar(Expression<Func<TEntidade, bool>> condicoes = null);
+        Contagem Contar(Expression<Func<TEntidade, bool>> condicoes = null);
 
         TEntidade Buscar(Expression<Func<TEntidade, bool>> condicoes = null, bool noContexto = false);
 
         IQueryable<TEntidade> Listar(Expression<Func<TEntidade, bool>> condicoes = null,
-            string ordenarPor = null, int deslocamento = -1, int limite = -1, bool noContexto = false);
+            string ordenarPor = null, int? deslocamento = null, int? limite = null, bool noContexto = false);
     }
 }

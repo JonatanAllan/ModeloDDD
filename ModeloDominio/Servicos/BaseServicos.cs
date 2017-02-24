@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using ModeloDominio.Entidades;
 
 namespace ModeloDominio.Servicos
 {
@@ -36,44 +37,44 @@ namespace ModeloDominio.Servicos
             _repositorio.TruncarTabela(tabela);
         }
 
-        public void Inserir(TEntidade entidade)
+        public bool Inserir(TEntidade entidade)
         {
-            _repositorio.Inserir(entidade);
+            return _repositorio.Inserir(entidade);
         }
 
-        public void Atualizar(TEntidade entidade)
+        public bool Atualizar(TEntidade entidade)
         {
-            _repositorio.Atualizar(entidade);
+            return _repositorio.Atualizar(entidade);
         }
 
-        public void Remover(TEntidade entidade)
+        public bool Remover(TEntidade entidade)
         {
-            _repositorio.Remover(entidade);
+            return _repositorio.Remover(entidade);
         }
 
-        public void Mesclar(TEntidade entidade)
+        public bool Mesclar(TEntidade entidade)
         {
-            _repositorio.Mesclar(entidade);
+            return _repositorio.Mesclar(entidade);
         }
 
-        public void InserirEmMassa(IEnumerable<TEntidade> entidades)
+        public bool InserirEmMassa(IEnumerable<TEntidade> entidades)
         {
-            _repositorio.InserirEmMassa(entidades);
+            return _repositorio.InserirEmMassa(entidades);
         }
 
-        public void AtualizarEmMassa(IEnumerable<TEntidade> entidades)
+        public bool AtualizarEmMassa(IEnumerable<TEntidade> entidades)
         {
-            _repositorio.AtualizarEmMassa(entidades);
+            return _repositorio.AtualizarEmMassa(entidades);
         }
 
-        public void RemoverEmMassa(IEnumerable<TEntidade> entidades)
+        public bool RemoverEmMassa(IEnumerable<TEntidade> entidades)
         {
-            _repositorio.RemoverEmMassa(entidades);
+            return _repositorio.RemoverEmMassa(entidades);
         }
 
-        public void MesclarEmMassa(IEnumerable<TEntidade> entidades)
+        public bool MesclarEmMassa(IEnumerable<TEntidade> entidades)
         {
-            _repositorio.MesclarEmMassa(entidades);
+            return _repositorio.MesclarEmMassa(entidades);
         }
 
         public TEntidade ObterPorChave(object chave)
@@ -86,7 +87,7 @@ namespace ModeloDominio.Servicos
             return _repositorio.ObterPorChave(chave);
         }
 
-        public object Contar(Expression<Func<TEntidade, bool>> condicoes = null)
+        public Contagem Contar(Expression<Func<TEntidade, bool>> condicoes = null)
         {
             return _repositorio.Contar(condicoes);
         }
@@ -97,7 +98,7 @@ namespace ModeloDominio.Servicos
         }
 
         public IQueryable<TEntidade> Listar(Expression<Func<TEntidade, bool>> condicoes = null,
-            string ordenarPor = null, int deslocamento = -1, int limite = -1, bool noContexto = false)
+            string ordenarPor = null, int? deslocamento = null, int? limite = null, bool noContexto = false)
         {
             return _repositorio.Listar(condicoes, ordenarPor, deslocamento, limite, noContexto);
         }

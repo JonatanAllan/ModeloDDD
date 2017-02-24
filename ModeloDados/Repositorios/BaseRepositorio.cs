@@ -6,6 +6,7 @@ using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Linq.Expressions;
+using ModeloDominio.Entidades;
 using ModeloDominio.Interfaces.Repositorios;
 
 namespace ModeloDados.Repositorios
@@ -40,72 +41,72 @@ namespace ModeloDados.Repositorios
             //Db.SaveChanges();
         }
 
-        public virtual void Inserir(TEntidade entidade)
+        public virtual bool Inserir(TEntidade entidade)
         {
             Db.Entry(entidade).State = EntityState.Added;
-            Db.SaveChanges();
+            return Salvar();
         }
 
-        public virtual void Atualizar(TEntidade entidade)
+        public virtual bool Atualizar(TEntidade entidade)
         {
             Db.Entry(entidade).State = EntityState.Modified;
-            Db.SaveChanges();
+            return Salvar();
         }
 
-        public virtual void Remover(TEntidade entidade)
+        public virtual bool Remover(TEntidade entidade)
         {
             Db.Entry(entidade).State = EntityState.Deleted;
-            Db.SaveChanges();
+            return Salvar();
         }
 
-        public virtual void Mesclar(TEntidade entidade)
+        public virtual bool Mesclar(TEntidade entidade)
         {
             Db.Set<TEntidade>().AddOrUpdate(entidade);
-            Db.SaveChanges();
+            return Salvar();
         }
 
-        public virtual void InserirEmMassa(IEnumerable<TEntidade> entidades)
+        public virtual bool InserirEmMassa(IEnumerable<TEntidade> entidades)
         {
             Db.Configuration.AutoDetectChangesEnabled = false;
             foreach (var entidade in entidades)
             {
                 Db.Entry(entidade).State = EntityState.Added;
             }
-            Db.SaveChanges();
             Db.Configuration.AutoDetectChangesEnabled = true;
+            return Salvar();
         }
 
-        public virtual void AtualizarEmMassa(IEnumerable<TEntidade> entidades)
+        public virtual bool AtualizarEmMassa(IEnumerable<TEntidade> entidades)
         {
             Db.Configuration.AutoDetectChangesEnabled = false;
             foreach (var entidade in entidades)
             {
                 Db.Entry(entidade).State = EntityState.Modified;
             }
-            Db.SaveChanges();
             Db.Configuration.AutoDetectChangesEnabled = true;
+            return Salvar();
         }
 
-        public virtual void RemoverEmMassa(IEnumerable<TEntidade> entidades)
+        public virtual bool RemoverEmMassa(IEnumerable<TEntidade> entidades)
         {
             Db.Configuration.AutoDetectChangesEnabled = false;
             foreach (var entidade in entidades)
             {
                 Db.Entry(entidade).State = EntityState.Deleted;
             }
-            Db.SaveChanges();
             Db.Configuration.AutoDetectChangesEnabled = true;
+            return Salvar();
         }
 
-        public virtual void MesclarEmMassa(IEnumerable<TEntidade> entidades)
+        public virtual bool MesclarEmMassa(IEnumerable<TEntidade> entidades)
         {
             Db.Configuration.AutoDetectChangesEnabled = false;
             foreach (var entidade in entidades)
             {
                 Db.Set<TEntidade>().AddOrUpdate(entidade);
             }
-            Db.SaveChanges();
             Db.Configuration.AutoDetectChangesEnabled = true;
+            return Salvar();
         }
 
         public virtual TEntidade ObterPorChave(object chave)
@@ -118,11 +119,11 @@ namespace ModeloDados.Repositorios
             return Db.Set<TEntidade>().Find(chave);
         }
 
-        public virtual object Contar(Expression<Func<TEntidade, bool>> condicoes = null)
+        public virtual Contagem Contar(Expression<Func<TEntidade, bool>> condicoes = null)
         {
             return condicoes == null
-                ? new { Total = Db.Set<TEntidade>().AsNoTracking().Count() }
-                : new { Total = Db.Set<TEntidade>().AsNoTracking().Count(condicoes) };
+                ? new Contagem { Total = Db.Set<TEntidade>().AsNoTracking().Count() }
+                : new Contagem { Total = Db.Set<TEntidade>().AsNoTracking().Count(condicoes) };
         }
 
         public virtual TEntidade Buscar(Expression<Func<TEntidade, bool>> condicoes = null, bool noContexto = false)
@@ -140,26 +141,35 @@ namespace ModeloDados.Repositorios
         }
 
         public virtual IQueryable<TEntidade> Listar(Expression<Func<TEntidade, bool>> condicoes = null,
-            string ordenarPor = null, int deslocamento = -1, int limite = -1, bool noContexto = false)
+            string ordenarPor = null, int? deslocamento = null, int? limite = null, bool noContexto = false)
         {
             // Ordenado Paginado Condicional
-            if (condicoes != null && ordenarPor != null && deslocamento > -1 && limite > 0)
+            if (condicoes != null && ordenarPor != null && deslocamento != null && limite != null)
             {
                 return noContexto
-                    ? Db.Set<TEntidade>().Where(condicoes).OrderBy(ordenarPor).Skip(deslocamento).Take(limite)
-                    : Db.Set<TEntidade>().AsNoTracking().Where(condicoes).OrderBy(ordenarPor).Skip(deslocamento).Take(limite);
+                    ? Db.Set<TEntidade>()
+                        .Where(condicoes)
+                        .OrderBy(ordenarPor)
+                        .Skip(deslocamento.Value)
+                        .Take(limite.Value)
+                    : Db.Set<TEntidade>()
+                        .AsNoTracking()
+                        .Where(condicoes)
+                        .OrderBy(ordenarPor)
+                        .Skip(deslocamento.Value)
+                        .Take(limite.Value);
             }
 
             // Ordenado Paginado
-            if (condicoes == null && ordenarPor != null && deslocamento > -1 && limite > 0)
+            if (condicoes == null && ordenarPor != null && deslocamento != null && limite != null)
             {
                 return noContexto
-                    ? Db.Set<TEntidade>().OrderBy(ordenarPor).Skip(deslocamento).Take(limite)
-                    : Db.Set<TEntidade>().AsNoTracking().OrderBy(ordenarPor).Skip(deslocamento).Take(limite);
+                    ? Db.Set<TEntidade>().OrderBy(ordenarPor).Skip(deslocamento.Value).Take(limite.Value)
+                    : Db.Set<TEntidade>().AsNoTracking().OrderBy(ordenarPor).Skip(deslocamento.Value).Take(limite.Value);
             }
 
             // Ordenado Condicional
-            if (condicoes != null && ordenarPor != null && deslocamento < 0 && limite < 1)
+            if (condicoes != null && ordenarPor != null && deslocamento == null && limite == null)
             {
                 return noContexto
                     ? Db.Set<TEntidade>().Where(condicoes).OrderBy(ordenarPor)
@@ -167,7 +177,7 @@ namespace ModeloDados.Repositorios
             }
 
             // Ordenado
-            if (condicoes == null && ordenarPor != null && deslocamento < 0 && limite < 1)
+            if (condicoes == null && ordenarPor != null && deslocamento == null && limite == null)
             {
                 return noContexto
                     ? Db.Set<TEntidade>().OrderBy(ordenarPor)
@@ -175,7 +185,7 @@ namespace ModeloDados.Repositorios
             }
 
             // Condicional
-            if (condicoes != null && ordenarPor == null && deslocamento < 0 && limite < 1)
+            if (condicoes != null && ordenarPor == null && deslocamento == null && limite == null)
             {
                 return noContexto
                     ? Db.Set<TEntidade>().Where(condicoes)
@@ -186,6 +196,11 @@ namespace ModeloDados.Repositorios
             return noContexto
                 ? Db.Set<TEntidade>()
                 : Db.Set<TEntidade>().AsNoTracking();
+        }
+
+        protected bool Salvar()
+        {
+            return Db.SaveChanges() > 0;
         }
     }
 }

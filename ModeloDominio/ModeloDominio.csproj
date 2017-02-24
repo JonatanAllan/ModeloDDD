@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ModeloDominio</RootNamespace>
     <AssemblyName>ModeloDominio</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -41,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entidades\BaseEntidade.cs" />
+    <Compile Include="Entidades\Contagem.cs" />
     <Compile Include="Entidades\Exemplo.cs" />
     <Compile Include="Interfaces\Repositorios\IBaseRepositorio.cs" />
     <Compile Include="Interfaces\Repositorios\IExemploRepositorio.cs" />

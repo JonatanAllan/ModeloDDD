@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using ModeloDominio.Entidades;
 
 namespace ModeloAplicacao.ServicosApp
 {
@@ -36,44 +37,44 @@ namespace ModeloAplicacao.ServicosApp
             _servicos.TruncarTabela(tabela);
         }
 
-        public void Inserir(TEntidade entidade)
+        public bool Inserir(TEntidade entidade)
         {
-            _servicos.Inserir(entidade);
+            return _servicos.Inserir(entidade);
         }
 
-        public void Atualizar(TEntidade entidade)
+        public bool Atualizar(TEntidade entidade)
         {
-            _servicos.Atualizar(entidade);
+            return _servicos.Atualizar(entidade);
         }
 
-        public void Remover(TEntidade entidade)
+        public bool Remover(TEntidade entidade)
         {
-            _servicos.Remover(entidade);
+            return _servicos.Remover(entidade);
         }
 
-        public void Mesclar(TEntidade entidade)
+        public bool Mesclar(TEntidade entidade)
         {
-            _servicos.Mesclar(entidade);
+            return _servicos.Mesclar(entidade);
         }
 
-        public void InserirEmMassa(IEnumerable<TEntidade> entidades)
+        public bool InserirEmMassa(IEnumerable<TEntidade> entidades)
         {
-            _servicos.InserirEmMassa(entidades);
+            return _servicos.InserirEmMassa(entidades);
         }
 
-        public void AtualizarEmMassa(IEnumerable<TEntidade> entidades)
+        public bool AtualizarEmMassa(IEnumerable<TEntidade> entidades)
         {
-            _servicos.AtualizarEmMassa(entidades);
+            return _servicos.AtualizarEmMassa(entidades);
         }
 
-        public void RemoverEmMassa(IEnumerable<TEntidade> entidades)
+        public bool RemoverEmMassa(IEnumerable<TEntidade> entidades)
         {
-            _servicos.RemoverEmMassa(entidades);
+            return _servicos.RemoverEmMassa(entidades);
         }
 
-        public void MesclarEmMassa(IEnumerable<TEntidade> entidades)
+        public bool MesclarEmMassa(IEnumerable<TEntidade> entidades)
         {
-            _servicos.MesclarEmMassa(entidades);
+            return _servicos.MesclarEmMassa(entidades);
         }
 
         public TEntidade ObterPorChave(object chave)
@@ -86,7 +87,7 @@ namespace ModeloAplicacao.ServicosApp
             return _servicos.ObterPorChave(chave);
         }
 
-        public object Contar(Expression<Func<TEntidade, bool>> condicoes = null)
+        public Contagem Contar(Expression<Func<TEntidade, bool>> condicoes = null)
         {
             return _servicos.Contar(condicoes);
         }
@@ -97,7 +98,7 @@ namespace ModeloAplicacao.ServicosApp
         }
 
         public IQueryable<TEntidade> Listar(Expression<Func<TEntidade, bool>> condicoes = null,
-            string ordenarPor = null, int deslocamento = -1, int limite = -1, bool noContexto = false)
+            string ordenarPor = null, int? deslocamento = null, int? limite = null, bool noContexto = false)
         {
             return _servicos.Listar(condicoes, ordenarPor, deslocamento, limite, noContexto);
         }
